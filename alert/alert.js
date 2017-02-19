@@ -38,7 +38,7 @@ var pumpOn = 1000;
 //////////////////////
 
 if (GPIOon) {
-    pump.writeSync(0);
+    pump.writeSync(1);
 }
 
 console.log("watching " + watchFor);
@@ -62,13 +62,13 @@ streamer.on('data', function(tweet) {
 function startRitual(PINid) {
     console.log("starting ritual - pump on");
     if (GPIOon) {
-        PINid.writeSync(1);
+        PINid.writeSync(0);
     }
 
     setTimeout(function() {
             console.log("ending ritual - pump off");
             if (GPIOon) {
-                PINid.writeSync(0);
+                PINid.writeSync(1);
             }
         }, pumpOn);
 }
