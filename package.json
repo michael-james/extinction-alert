@@ -1,0 +1,14 @@
+{
+  "name": "panda-extinction-scraper",
+  "version": "1.0.0",
+  "description": "scrape number of pandas from poodwaddle.com",
+  "main": "scraper-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael James",
+  "license": "ISC",
+  "dependencies": {
+    "phantomjs-prebuilt": "^2.1.14"
+  }
+}
