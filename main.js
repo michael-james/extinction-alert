@@ -2,6 +2,12 @@
 NodeJS + PhantomJS architecture based on phantomjs-prebuilt package example
 */
 
+var fs = require('fs');
+var path = require('path')
+var childProcess = require('child_process')
+var phantomjs = require('phantomjs-prebuilt')
+// var GPIO = require('onoff').Gpio; // for GPIO pin control
+
 
 //////////////////////
 // variables
@@ -32,12 +38,19 @@ select one of the following animals:
 */
 var animal = "GiantPanda"
 
+
+// GPIO
+// var led = new GPIO(17, 'out');
+// we are looking for both the press and release of the button, so use 'both' edges
+// var button = new GPIO(27,/ 'in', 'both');
+
+
 //////////////////////
 
-var fs = require('fs');
-var path = require('path')
-var childProcess = require('child_process')
-var phantomjs = require('phantomjs-prebuilt')
+//////////////////////
+// web scraping
+//////////////////////
+
 var binPath = phantomjs.path
 var childArgs = [path.join(__dirname, phantomFile)]
 
@@ -74,7 +87,7 @@ function writeFiles(newStr) {
 			});
 		}
 		else {
-			console.log("history not find.")
+			console.log("previous data not found.")
 		}
 	});
 }
@@ -95,11 +108,33 @@ function processJSON(newStr, prevStr) {
 	}
 }
 
+//////////////////////
+// hardware
+//////////////////////
+
 // hardware ritual
 function startRitual() {
 	console.log("** glitter **");
+	// flash(led);
 }
 
+// // watch the button for changes
+// button.watch(function(err, val) {
+// 	startRitual();
+// });
 
+// // flash an LED
+// function flash(LEDid) {
+//     LEDid.writeSync(1);
 
+//     setTimeout(function() {
+//             LEDid.writeSync(0);
+//         }, 30);
+// }
+
+// // gracefully shut down the pins on quit
+// process.on('SIGINT', function() {
+//         led.unexport();
+//         button.unexport();
+// })
 
