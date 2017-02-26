@@ -1,3 +1,7 @@
+/*
+NodeJS + PhantomJS architecture based on phantomjs-prebuilt package example
+*/
+
 
 //////////////////////
 // variables

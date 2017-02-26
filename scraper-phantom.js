@@ -1,3 +1,7 @@
+/*
+Based on PhantomJS example phantomwebintro
+*/
+
 // Read animal extinction stats using PhantomJS, jQuery, and "includeJs"
 
 "use strict";
