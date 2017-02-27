@@ -9,7 +9,7 @@ var GPIO = require('onoff').Gpio; // for GPIO pin control
 //////////////////////
 
 // GPIO
-var pump = new GPIO(12, 'out');
+var pump = new GPIO(17, 'out');
 // we are looking for both the press and release of the button, so use 'both' edges
 // var button = new GPIO(27, 'in', 'both');
 
