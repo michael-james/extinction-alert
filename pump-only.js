@@ -36,13 +36,13 @@ function flash(PINid) {
 }
 
 // watch the button for changes
-button.watch(function(err, val) {
-	startRitual();
-});
+// button.watch(function(err, val) {
+// 	startRitual();
+// });
 
 // gracefully shut down the pins on quit
 process.on('SIGINT', function() {
-        button.unexport();
+        // button.unexport();
         pump.unexport();
 })
 
