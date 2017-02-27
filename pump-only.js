@@ -20,6 +20,8 @@ var pumpOn = 5000;
 // hardware
 //////////////////////
 
+PINid.writeSync(0);
+
 // hardware ritual
 function startRitual() {
 	console.log("** glitter **");
