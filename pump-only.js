@@ -14,7 +14,7 @@ var pump = new GPIO(12, 'out');
 // var button = new GPIO(27, 'in', 'both');
 
 // duration the pump is on in milliseconds
-var pumpOn = 500;
+var pumpOn = 5000;
 
 //////////////////////
 // hardware
