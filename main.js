@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path')
 var childProcess = require('child_process')
 var phantomjs = require('phantomjs-prebuilt')
-// var GPIO = require('onoff').Gpio; // for GPIO pin control
+var GPIO = require('onoff').Gpio; // for GPIO pin control
 
 
 //////////////////////
@@ -40,12 +40,13 @@ var animal = "GiantPanda"
 
 
 // GPIO
-// var led = new GPIO(17, 'out');
+var pump = new GPIO(17, 'out');
 // we are looking for both the press and release of the button, so use 'both' edges
-// var button = new GPIO(27,/ 'in', 'both');
+var button = new GPIO(27, 'in', 'both');
 
+// duration the pump is on in milliseconds
+var pumpOn = 1000;
 
-//////////////////////
 
 //////////////////////
 // web scraping
@@ -115,26 +116,26 @@ function processJSON(newStr, prevStr) {
 // hardware ritual
 function startRitual() {
 	console.log("** glitter **");
-	// flash(led);
+	flash(pump);
 }
 
-// // watch the button for changes
-// button.watch(function(err, val) {
-// 	startRitual();
-// });
+// flash an LED
+function flash(PINid) {
+    PINid.writeSync(1);
 
-// // flash an LED
-// function flash(LEDid) {
-//     LEDid.writeSync(1);
+    setTimeout(function() {
+            PINid.writeSync(0);
+        }, pumpOn);
+}
 
-//     setTimeout(function() {
-//             LEDid.writeSync(0);
-//         }, 30);
-// }
+// watch the button for changes
+button.watch(function(err, val) {
+	startRitual();
+});
 
-// // gracefully shut down the pins on quit
-// process.on('SIGINT', function() {
-//         led.unexport();
-//         button.unexport();
-// })
+// gracefully shut down the pins on quit
+process.on('SIGINT', function() {
+        button.unexport();
+        pump.unexport();
+})
 
