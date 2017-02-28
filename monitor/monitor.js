@@ -1,5 +1,4 @@
 // require all dependencies
-var fs = require('fs');
 var path = require('path')
 var childProcess = require('child_process')
 var phantomjs = require('phantomjs-prebuilt')
@@ -46,7 +45,9 @@ select one of the following animals:
 */
 var animal = "GiantPanda"
 
-console.log("let's go!");
+// check every x minutes
+var checkIntervalMin = 30;
+var checkInterval = 1000 * 60 * checkIntervalMin;
 
 //////////////////////
 // web scraping
@@ -55,15 +56,25 @@ console.log("let's go!");
 var binPath = phantomjs.path
 var childArgs = [path.join(__dirname, phantomFile)]
 
-// scrape webpage
-childProcess.execFile(binPath, childArgs, function(err, newStr, stderr) {
-  if (stderr) {
-  	console.log(stderr);      // Always empty
- 	}
- 	if (newStr) {
- 		processJSON(newStr);
- 	}
-})
+function checkStats() {
+	console.log("checking stats...");
+
+	// scrape webpage
+	childProcess.execFile(binPath, childArgs, function(err, newStr, stderr) {
+	  if (stderr) {
+	  	console.log(stderr);      // Always empty
+	 	}
+	 	if (newStr) {
+	 		processJSON(newStr);
+	 	}
+	})		
+}
+
+checkStats();
+
+setInterval(function() {
+	checkStats();
+}, checkInterval);
 
 // parse and act on data
 function processJSON(newStr) {
@@ -71,7 +82,7 @@ function processJSON(newStr) {
 	// console.log(newJSON); // print all data
 
 	// fake
-	newJSON[animal] = 0;
+	// newJSON[animal] = 0;
 
 	console.log(animal + "'s left: " + newJSON[animal]);
 
