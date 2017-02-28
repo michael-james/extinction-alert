@@ -19,8 +19,6 @@ var client = new Twitter({
 // variables
 //////////////////////
 
-var watchFor = "fyi the last panda died";
-
 var phantomFile = 'scraper-phantom.js';
 
 /*
@@ -61,50 +59,63 @@ childProcess.execFile(binPath, childArgs, function(err, newStr, stderr) {
   	console.log(stderr);      // Always empty
  	}
  	if (newStr) {
- 		processJSON(newStr);
+ 		writeFiles(newStr);
  	}
 })
 
+// save data
+function writeFiles(newStr) {
+	// rename old JSON file
+  fs.readFile('json-newest.js', 'utf8', (err, prevStr) => {
+  	if (!err) {
+	  	fs.writeFile('json-previous.js', prevStr, 'utf8', function(err) {
+			  if(err) {
+			  	return console.log(err);
+				}
+			  
+			  console.log("old file renamed!");
+
+			  writeNewFile(newStr);
+
+			  processJSON(newStr, prevStr);
+			});
+		}
+		else {
+			console.log("previous data not found.");
+			writeNewFile(newStr);
+			console.log("will try again next cycle.");
+		}
+	});
+}
+
+function writeNewFile(newStr) {
+	// save JSON to file
+  fs.writeFile("json-newest.js", newStr, 'utf8', function(err) {
+	  if(err) {
+	  	return console.log(err);
+		}
+	  
+	  console.log("new file saved!");
+	});
+}
+
 // parse and act on data
-function processJSON(newStr) {
+function processJSON(newStr, prevStr) {
 	var newJSON = JSON.parse(newStr);
-	// console.log(newJSON); // print all data
+	console.log(newJSON);
+  console.log("myAnimal: " + newJSON[animal]);
+	if (prevStr.length) {
+		var prevJSON = JSON.parse(prevStr);
+	}
 
-	// fake
-	newJSON[animal] = 0;
-
-	console.log(animal + "'s left: " + newJSON[animal]);
-
-	// if there are none of the animal left
-	if (newJSON[animal] == 0) {
-		console.log("all dead :(");
+	// if an animal has died
+	if (newJSON[animal] > prevJSON[animal]) {
 		post();
 	}
 	else {
-		console.log("some still alive!");
+		console.log("still alive!");
 	}
 }
-
-//////////////////////
-// listen to Twitter
-//////////////////////
-
-console.log("watching " + watchFor);
-
-// set up a stream
-var streamer = client.stream('statuses/filter', {track: watchFor});
-
-streamer.on('data', function(tweet) {
-    if (tweet.user != null) {
-        var name = tweet.user.screen_name;
-        var text = tweet.text;
-        var date = moment(tweet.created_at, "ddd MMM DD HH:mm:ss Z YYYY");
-
-        console.log(">    @" + name + " said: " + text + ", on " + date.format("YYYY-MM-DD") + " at " + date.format("h:mma"));
-    }
-
-    post();
-});
 
 //////////////////////
 // post on Twitter
@@ -115,7 +126,7 @@ function post() {
 	// post a tweet
 	client.post('statuses/update', {
 
-	    status: "The last panda just passed away at " + moment().format("dddd, MMMM Do, YYYY, h:mm:ss a") + "! #lastpanda #mti"
+	    status: "The last panda just passed away at " + moment().format("dddd, MMMM Do, YYYY, h:mm:ss a") + "! #lastpanda"
 
 	    }, function(err, tweet, res) {
 	    if (!err) {

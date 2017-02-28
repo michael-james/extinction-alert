@@ -1,0 +1,17 @@
+{
+  "name": "alert-extinct-animals",
+  "version": "1.0.0",
+  "description": "alert when endangered animal extinct",
+  "main": "alert.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "moment": "^2.17.1",
+    "onoff": "^1.1.2",
+    "twitter": "^1.7.0"
+  }
+}
