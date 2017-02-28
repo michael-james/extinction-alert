@@ -1,0 +1,18 @@
+{
+  "name": "monitor-endangered-animals",
+  "version": "1.0.0",
+  "description": "monitor endangered animals and post on local webserver",
+  "main": "monitor.js",
+  "scripts": {
+    "watch": "nodemon monitor.js -e js,pug",
+    "start": "node monitor.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "morgan": "^1.8.1",
+    "pug": "^2.0.0-beta11",
+    "phantomjs-prebuilt": "^2.1.14"
+  }
+}
