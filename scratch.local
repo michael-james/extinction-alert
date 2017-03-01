@@ -1,0 +1,2 @@
+#node /home/pi/Projects/extinction-alert/alert/alert.js < /dev/null &
+node /home/pi/Projects/extinction-alert/alert/alert.js &
