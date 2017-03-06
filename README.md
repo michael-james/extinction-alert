@@ -1,15 +1,31 @@
 # Last Panda Alarm
 sponsored by the Last Panda Institute
 
-## Node.js
+## Mac - Monitor
 
-Monitor
-[code](monitor/monitor.js)
+In the "Monitor" folder on you Mac, install the relevant modules.
+
+```shell
+npm install
+```
+
+Raw Code 
+
+[Node.js - monitor](monitor/monitor.js)
+
+
+[PhantomJS - scrape](monitor/scraper-phantom.js)
+
+## Raspberry Pi - Alert
 
 Alert
-[code](alert/alert.js)
 
-## PhantomJS
+In the "Alert" folder on you RaspberryPi, install the relevant modules.
 
-Monitor
-[code](monitor/scraper-phantom.js)
+```shell
+npm install
+```
+
+Raw Code
+
+[Node.js - alert](alert/alert.js)
