@@ -3,13 +3,19 @@ sponsored by the Last Panda Institute
 
 ## Mac - Monitor
 
-In the "Monitor" folder on you Mac, install the relevant modules.
+In the "monitor" folder on you Mac, install the relevant modules.
 
-```shell
+```
+cd monitor
 npm install
 ```
+Run the program.
 
-Raw Code 
+```shell
+node monitor.js
+```
+
+Raw Code
 
 [Node.js - monitor](monitor/monitor.js)
 
@@ -20,10 +26,16 @@ Raw Code
 
 Alert
 
-In the "Alert" folder on you RaspberryPi, install the relevant modules.
+In the "alert" folder on you RaspberryPi, install the relevant modules.
 
 ```shell
+cd alert
 npm install
+```
+Run the program.
+
+```shell
+node alert.js
 ```
 
 Raw Code
